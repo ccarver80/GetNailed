@@ -1,13 +1,14 @@
-import Header from "./Components/Header";
-import About from "./Components/About";
+import Main from "./Components/Main";
 import './index.css'
 
 
 
 function App() {
   return (
-  <><Header />
-  <About /></>
+  <>
+    <Main />
+  </>
+  
   );
 }
 
