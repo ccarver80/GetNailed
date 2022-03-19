@@ -3,7 +3,7 @@ import React from "react";
 export default function Header() {
   return (
     <div className="mx-5 flex h-[120px] bg-space shadow-purple-500 shadow-lg">
-      <h1 className="lg:text-8xl md:text-6xl text-4xl text-white text-shadow mx-auto my-auto font-Shadows">
+      <h1 className="lg:text-8xl md:text-6xl text-5xl text-white text-shadow mx-auto my-auto font-Shadows">
         Get Nailed
       </h1> <div className="absolute left-8 top-3">
         <svg
