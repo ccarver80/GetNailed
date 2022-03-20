@@ -25,7 +25,7 @@ export default function Header() {
         {" "}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-12 w-12 mr-5 text-white "
+          className="h-10 w-10 mr-5 text-white "
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
