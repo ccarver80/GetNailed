@@ -6,26 +6,26 @@ import nail4 from '../Style/imgs/nail4.jpg'
 const images = [
   {
     original: nail1,
-    thumbnail: nail1,
+    
    
     
   },
 
   {
     original: nail2,
-    thumbnail: nail2,
+    
 
   },
 
   {
     original: nail3,
-    thumbnail: nail3,
+    
 
   },
 
   {
     original: nail4,
-    thumbnail: nail4,
+    
 
   },
 

@@ -25,7 +25,7 @@ export default function About() {
 
       {/* ================================ Photo Gallery ======================================== */}
         <div className="flex shadow-purple-500 shadow-lg bg-slate-700 p-10 mt-5 mx-5 ">
-        <div className="mx-auto ">
+        <div className="mx-auto sm:w-auto w-[200px]">
         <h1 className="text-4xl text-center text-white mb-2">Gallery</h1>
         <ImageGallery items={images}  />
         </div>
