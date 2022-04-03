@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "./Header";
 import ImageGallery from 'react-image-gallery'
@@ -7,6 +7,18 @@ import Mandi from "../Style/imgs/mandi.jpg";
 import images from './Imgs'
 
 export default function About() {
+
+  const [storeData, setStoreData] = useState()
+
+  useEffect(() => {
+    const fetchStore = async() =>{
+      await fetch('http://localhost:5000/nails')
+      .then((res) => res.json())
+      .then((data) => {setStoreData(data)})
+    }
+    fetchStore()
+  }, [])
+    console.log(storeData[0].picture)
   return (
     <div className=" bg-white">
       <Header />
@@ -34,7 +46,7 @@ export default function About() {
 
       {/* ================================== Store =============================================== */}
         <div className="text-center h-screen bg-purple-200 mt-10 mx-5">
-          <h1 className= "text-4xl text-black">Store</h1>
+          <img src={storeData[0].picture} />
         </div>
     </div>
   );
