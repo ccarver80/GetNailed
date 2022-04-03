@@ -11,23 +11,8 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.TEXT
-      },
       picture: {
-        type: Sequelize.STRING
-      },
-      small: {
-        type: Sequelize.STRING
-      },
-      med: {
-        type: Sequelize.STRING
-      },
-      lg: {
-        type: Sequelize.STRING
-      },
-      xl: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB
       },
       createdAt: {
         allowNull: false,

@@ -15,12 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Nails.init({
     title: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    picture: DataTypes.STRING,
-    small: DataTypes.STRING,
-    med: DataTypes.STRING,
-    lg: DataTypes.STRING,
-    xl: DataTypes.STRING
+    picture: DataTypes.BLOB
   }, {
     sequelize,
     modelName: 'Nails',

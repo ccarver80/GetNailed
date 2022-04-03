@@ -18,7 +18,9 @@ export default function About() {
     }
     fetchStore()
   }, [])
-    console.log(storeData[0].picture)
+
+  console.log(storeData[0].picture)
+    
   return (
     <div className=" bg-white">
       <Header />
@@ -45,8 +47,31 @@ export default function About() {
 
 
       {/* ================================== Store =============================================== */}
-        <div className="text-center h-screen bg-purple-200 mt-10 mx-5">
-          <img src={storeData[0].picture} />
+
+      
+        <div className="   text-center pt-5 bg-purple-200 mt-10 mx-5">
+            <div className="text-4xl text-center text-black mb-2">
+            <h1>Store</h1>
+            <h2 className="text-2xl">All sizes and shapes avalible to purchase</h2>
+            </div>
+
+              <div className="justify-between flex flex-wrap">
+
+              { storeData ? 
+                storeData.map((nail) => (
+         <div className="m-5">
+          <img className="lg:h-96 md:h-56" src={nail.picture} />
+            <h1 className="text-2xl">{nail.title}</h1>
+            <button className="bg-red-500 text-white p-5 rounded-2xl mx-auto">Sizes and Options</button>
+          </div> 
+              
+                ))
+                : ''
+              }
+       
+        
+        </div>
+
         </div>
     </div>
   );
