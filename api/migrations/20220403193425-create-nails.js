@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       picture: {
-        type: Sequelize.BLOB
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

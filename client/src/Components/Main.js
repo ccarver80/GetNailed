@@ -19,7 +19,6 @@ export default function About() {
     fetchStore()
   }, [])
 
-  console.log(storeData[0].picture)
     
   return (
     <div className=" bg-white">
@@ -27,7 +26,7 @@ export default function About() {
       {/* ============================== ABOUT ME ====================================== */}
 
       <div className="lg:flex md:flex block shadow-purple-500 shadow-lg bg-purple-200 p-5 mx-3 mt-10 ">
-        <img className="lg:h-96 md:h-56 mr-5 mb-3" src={Mandi} />
+        <img className="lg:h-96 md:h-56 mr-5 mb-3" alt="profile" src={Mandi} />
         <div className="mx-auto my-auto bg-lime-50 p-5 lg:w-[35rem] rounded-xl shadow-purple-500 shadow-md  text-center">
           <h1 className="text-4xl mx-auto my-auto">Hello, I'm Mandi Watson</h1>
           <p className="mx-auto my-auto text-justify text-xl mt-2">
@@ -59,8 +58,8 @@ export default function About() {
 
               { storeData ? 
                 storeData.map((nail) => (
-         <div className="m-5">
-          <img className="lg:h-96 md:h-56" src={nail.picture} />
+         <div className="mx-auto flex flex-col m-5">
+           <img className="lg:h-96 md:h-56 rounded" alt="press-on nail" src={`http://localhost:5000/nails/${nail.id}`} />  
             <h1 className="text-2xl">{nail.title}</h1>
             <button className="bg-red-500 text-white p-5 rounded-2xl mx-auto">Sizes and Options</button>
           </div> 
