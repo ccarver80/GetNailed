@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <div className="mx-5 flex h-[120px] bg-space border-2 border-black rounded-xl shadow-purple-500 shadow-lg">
+    <div className="mx-5 flex h-[120px] bg-space  rounded-xl ">
       <h1 className="lg:text-8xl md:text-6xl text-5xl text-white mx-auto my-auto font-Shadows">
         Get Nailed
       </h1> <div className="absolute left-8 top-3">
