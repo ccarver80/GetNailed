@@ -50,4 +50,19 @@ router.get('/nails', async(req, res) => {
     }
 })
 
-module.exports = router;
+
+router.get('/nail-set/:id', async(req, res) => {
+    try{
+        const singleNailSet = await nails.findAll({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        res.send(singleNailSet).status(200)
+    }catch(err) {
+        console.log(err)
+    }
+})
+
+module.exports = router;    

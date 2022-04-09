@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import api from '../api'
 import Header from "./Header";
 
 
@@ -12,7 +12,7 @@ export default function About() {
 
   useEffect(() => {
     const fetchStore = async () => {
-      await fetch("http://localhost:5000/nails")
+      await fetch(api+"/nails")
         .then((res) => res.json())
         .then((data) => {
           setStoreData(data);
