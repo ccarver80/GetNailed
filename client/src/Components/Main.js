@@ -25,7 +25,7 @@ export default function About() {
       <Header />
       {/* ============================== ABOUT ME ====================================== */}
 
-      <div className="lg:flex md:flex block shadow-purple-500 shadow-lg bg-purple-200 p-5 mx-3 mt-10 ">
+      <div className="lg:flex md:flex block shadow-purple-500 shadow-xl rounded-xl bg-white border-2 border-black p-5 mx-5 mt-10 ">
         <img className="lg:h-96 md:h-56 mr-5 mb-3" alt="profile" src={Mandi} />
         <div className="mx-auto my-auto bg-lime-50 p-5 lg:w-[35rem] rounded-xl shadow-purple-500 shadow-md  text-center">
           <h1 className="text-4xl mx-auto my-auto">Hello, I'm Mandi Watson</h1>
@@ -36,19 +36,13 @@ export default function About() {
         </div>
       </div>
 
-      {/* ================================ Photo Gallery ======================================== */}
-        <div className="flex shadow-purple-500 shadow-lg bg-purple-200 p-10 mt-10 mx-5 ">
-        <div className="mx-auto sm:w-auto w-[200px]">
-        <h1 className="text-4xl text-center text-black mb-2">Gallery</h1>
-        <ImageGallery items={images}  />
-        </div>
-        </div>
+     
 
 
       {/* ================================== Store =============================================== */}
 
       
-        <div className="   text-center pt-5 bg-purple-200 mt-10 mx-5">
+        <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5 bg-white border-2 border-black mt-10 mx-5">
             <div className="text-4xl text-center text-black mb-2">
             <h1>Store</h1>
             <h2 className="text-2xl">All sizes and shapes avalible to purchase</h2>
