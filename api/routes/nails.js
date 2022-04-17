@@ -14,12 +14,18 @@ const nails = require('../models').Nails
 
 router.use(express.json());
 app.use(fileUpload())
+
+
+
+//POST ROUTE FOR NAILS
 router.post('/nails', async(req, res) => {
     try{
        
                
-             const NewNails = await nails.create({picture: req.files.picture.data, title: req.body.title  })
-             res.sendStatus(201)
+             const NewNails = await nails.create({picture: req.files.picture.data, title: req.body.title, description: req.body.description })
+             res.status(201).json({
+                 message: "Posted"
+             })
 }catch(err) {
         console.log(err)
 }

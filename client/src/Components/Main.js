@@ -30,7 +30,7 @@ export default function About() {
       {/* ============================== ABOUT ME ====================================== */}
 
       <div className="lg:flex md:flex block rounded-xl bg-transparent p-5 mx-10 mt-10 ">
-        <img className="lg:h-96 md:h-56 mr-5 mb-3 shadow-2xl shadow-purple-400" alt="profile" src={Mandi} />
+        <img className="lg:h-96 md:h-56 mr-5 mb-3 shadow-2xl shadow-purple-400 rounded-xl" alt="profile" src={Mandi} />
         <div className="mx-auto my-auto bg-lime-200 p-5 lg:w-[35rem] rounded-xl border-2 border-black shadow-purple-500 shadow-lg  text-center">
           <h1 className="text-4xl mx-auto my-auto">Hello, I'm Mandi Watson</h1>
           <p className="mx-auto my-auto text-justify text-xl mt-2">
@@ -61,7 +61,7 @@ export default function About() {
                   <img
                     className="lg:h-96 md:h-56 rounded"
                     alt="press-on nail"
-                    src={`http://localhost:5000/nails/${nail.id}`}
+                    src={`${api}/nails/${nail.id}`}
                   />
                   <h1 className="text-2xl">{nail.title}</h1>
                   <button onClick={() => {nav(`/nail-set/${nail.id}`)}} className="bg-red-500 text-white p-5 rounded-2xl mx-auto">
