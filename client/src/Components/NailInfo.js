@@ -21,7 +21,7 @@ export default function NailInfo(props) {
   }, []);
 
   return (
-    <div className="h-screen flex bg-space">
+    <div className="flex bg-space">
       {nailInfo ? (
         <div className="mx-auto flex flex-col my-auto p-10 bg-white">
           <h1 className="mx-auto my-5 font-bold text-xl">
