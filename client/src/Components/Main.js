@@ -29,21 +29,21 @@ export default function About() {
       <Header />
       {/* ============================== ABOUT ME ====================================== */}
 
-      <div className="lg:flex md:flex block rounded-xl bg-white border-2 border-black p-5 mx-5 mt-10 ">
-        <img className="lg:h-96 md:h-56 mr-5 mb-3" alt="profile" src={Mandi} />
+      <div className="lg:flex md:flex block rounded-xl bg-transparent p-5 mx-10 mt-10 ">
+        <img className="lg:h-96 md:h-56 mr-5 mb-3 shadow-2xl shadow-purple-400" alt="profile" src={Mandi} />
         <div className="mx-auto my-auto bg-lime-200 p-5 lg:w-[35rem] rounded-xl border-2 border-black shadow-purple-500 shadow-lg  text-center">
           <h1 className="text-4xl mx-auto my-auto">Hello, I'm Mandi Watson</h1>
           <p className="mx-auto my-auto text-justify text-xl mt-2">
             I am a professional nail technician in Forsyth Montana. I wanted to
             do press on nails so I can share my talent with everyone far and
-            wide, and everyone can experience what its like to "Get Nailed By Mandi"
+            wide, now everyone can experience what its like to "Get Nailed By Mandi"
           </p>
         </div>
       </div>
 
       {/* ================================== Store =============================================== */}
 
-      <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5 bg-white border-2 border-black mt-10 mx-5">
+      <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5 bg-white border-2 border-black mt-10 mx-10">
         <div className="text-4xl text-center text-black mb-2">
           <h1>Store</h1>
           <h2 className="text-2xl">
