@@ -23,9 +23,8 @@ router.post('/nails', async(req, res) => {
        
                
              const NewNails = await nails.create({picture: req.files.picture.data, title: req.body.title, description: req.body.description })
-             res.status(201).json({
-                 message: "Posted"
-             })
+           res.json(NewNails.id);
+           res.status(201);
 }catch(err) {
         console.log(err)
 }

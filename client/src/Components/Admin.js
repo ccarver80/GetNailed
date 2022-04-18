@@ -1,10 +1,14 @@
+import api from "../api";
+
+
+
 export default function Admin() {
   return (
     <div className="flex bg-purple-400 h-screen">
       <div className="bg-white rounded-xl shadow-xl shadow-black p-5 mx-auto my-auto flex flex-col">
         <h1 className="mx-auto text-4xl">Add to store</h1>
         <form
-          action="http://localhost:5000/nails"
+          action={`${api}/nails`}
           method="post"
           id="uploadForm"
           encType="multipart/form-data"
