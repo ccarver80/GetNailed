@@ -30,6 +30,30 @@ router.post('/nails', async(req, res) => {
 }
 })
 
+router.put('/nails/:id', async(req, res) => {
+    try{
+        const EditNails = await nails.update({picture: req.files.picture.data, title: req.body.title, description: req.body.description }, {
+            where: {
+                id: req.params.id
+            }
+        })
+    }catch(err) {
+        console.log(err)
+    }
+})
+
+router.delete('/nails/:id', async(req, res) => {
+    try{
+        const DestroyNails = await nails.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+    }catch(err) {
+        console.log(err)
+    }
+})
+
 router.get('/nails/:id', async(req, res) => {
     try{
         const nailList = await nails.findAll({

@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Admin from "./Components/Admin";
 import SignIn from "./Components/SignIn";
 import NailInfo from "./Components/NailInfo";
+import EditNail from "./Components/EditNail";
 
 
 
@@ -18,6 +19,7 @@ function App() {
         {/* Need to add protected routes */}
         <Route path="/admin" element={<Admin />} />
         <Route path='/signin' element={<SignIn />} />
+        <Route path='/edit-set/:id' element={<EditNail />} />
       </Routes>
       </BrowserRouter>
   

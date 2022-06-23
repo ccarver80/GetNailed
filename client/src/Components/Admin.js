@@ -1,10 +1,31 @@
+import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+
 import api from "../api";
 
 
 
 export default function Admin() {
+
+  const [storeData, setStoreData] = useState();
+
+  useEffect(() => {
+    const fetchStore = async () => {
+      await fetch(api+"/nails")
+        .then((res) => res.json())
+        .then((data) => {
+          setStoreData(data);
+        });
+    };
+    fetchStore();
+  }, []);
+
+
+
+const nav = useNavigate();
+
   return (
-    <div className="flex bg-purple-400 h-screen">
+    <div className="flex flex-col bg-purple-400">
       <div className="bg-white rounded-xl shadow-xl shadow-black p-5 mx-auto my-auto flex flex-col">
         <h1 className="mx-auto text-4xl">Add to store</h1>
         <form
@@ -39,6 +60,39 @@ export default function Admin() {
           </button>
         </form>
       </div>
+
+
+
+      <div className=" rounded-xl shadow-purple-500 shadow-xl mb-10 text-center pt-5 bg-white border-2 border-black mt-10 mx-10">
+        <div className="text-4xl text-center text-black mb-2">
+          <h1>Store</h1>
+          <h2 className="text-2xl">
+            Edit, and Delete
+          </h2>
+          
+        </div>
+
+        <div className="justify-between flex flex-wrap">
+          {storeData
+            ? storeData.map((nail) => (
+                <div className="mx-auto flex flex-col m-5">
+                  <img
+                    className="lg:h-96 md:h-56 rounded"
+                    alt="press-on nail"
+                    src={`${api}/nails/${nail.id}`}
+                  />
+                  <h1 className="text-2xl">{nail.title}</h1>
+                  <div className="flex flex-row justify-between"> 
+                 <button onClick={() => {nav(`/edit-set/${nail.id}`)}} className="bg-green-400 w-fit p-5 rounded-xl">Edit</button>
+                 <button className="bg-red-500 w-fit p-5 rounded-xl">Delete</button></div>
+                </div>
+              ))
+            : ""}
+        </div>
+      </div>
+
+
+
     </div>
   );
 }
