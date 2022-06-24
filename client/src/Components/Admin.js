@@ -20,7 +20,12 @@ export default function Admin() {
     fetchStore();
   }, []);
 
+  const deleteNails = async (nailInfo) => {
+    await fetch(`${api}/nails/${nailInfo}`, {
+      method: "DELETE",
+    })
 
+  }
 
 const nav = useNavigate();
 
@@ -84,7 +89,7 @@ const nav = useNavigate();
                   <h1 className="text-2xl">{nail.title}</h1>
                   <div className="flex flex-row justify-between"> 
                  <button onClick={() => {nav(`/edit-set/${nail.id}`)}} className="bg-green-400 w-fit p-5 rounded-xl">Edit</button>
-                 <button className="bg-red-500 w-fit p-5 rounded-xl">Delete</button></div>
+                 <button onClick={() => deleteNails(nail.id)} className="bg-red-500 w-fit p-5 rounded-xl">Delete</button></div>
                 </div>
               ))
             : ""}

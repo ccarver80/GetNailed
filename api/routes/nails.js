@@ -44,11 +44,11 @@ router.put('/nails/:id', async(req, res) => {
 
 router.delete('/nails/:id', async(req, res) => {
     try{
-        const DestroyNails = await nails.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
+        
+        const destroyNails = await nails.findByPk(req.params.id)
+        destroyNails.destroy()
+      
+        res.status(204)
     }catch(err) {
         console.log(err)
     }

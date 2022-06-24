@@ -30,6 +30,7 @@ export default function EditNail() {
     .then((data) => console.log(data))
   }
 
+  console.log(nailInfo)
   return (
     <div className="flex bg-space">
       {nailInfo ? (
@@ -38,7 +39,7 @@ export default function EditNail() {
         <form onSubmit={updateNails} className="flex flex-col text-2xl">
 
         <label className="font-bold" htmlFor="title">Edit Title</label>
-          <input name='title' id="title" type='text' value={nailInfo[0].title} onChange={(e) => setNailInfo({...nailInfo[0], title: e.target.value})}
+          <input name='title' id="title" type='text' placeholder={nailInfo[0].title} onChange={(e) => setNailInfo({...nailInfo[0], title: e.target.value})}
           
           className="mx-auto my-5 border-2 border-black font-bold text-xl" 
             
