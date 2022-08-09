@@ -5,6 +5,8 @@ import Admin from "./Components/Admin";
 import SignIn from "./Components/SignIn";
 import NailInfo from "./Components/NailInfo";
 import EditNail from "./Components/EditNail";
+import Customize from "./Components/Customize";
+import Cart from "./Components/Cart";
 
 
 
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Main />} />
         <Route path='/nail-set/:id' element={<NailInfo />} /> 
+        <Route path='/nail-set-custom/:id' element={<Customize />} />
+        <Route path='/cart' element={<Cart />} />
 
         {/* Need to add protected routes */}
         <Route path="/admin" element={<Admin />} />

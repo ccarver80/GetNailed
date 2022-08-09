@@ -89,7 +89,8 @@ const nav = useNavigate();
                   <h1 className="text-2xl">{nail.title}</h1>
                   <div className="flex flex-row justify-between"> 
                  <button onClick={() => {nav(`/edit-set/${nail.id}`)}} className="bg-green-400 w-fit p-5 rounded-xl">Edit</button>
-                 <button onClick={() => deleteNails(nail.id)} className="bg-red-500 w-fit p-5 rounded-xl">Delete</button></div>
+                 <button onClick={async() => {
+                   deleteNails(nail.id)}} className="bg-red-500 w-fit p-5 rounded-xl">Delete</button></div>
                 </div>
               ))
             : ""}
