@@ -57,6 +57,30 @@ const nav = useNavigate();
             name="description"
           />
 
+          <label htmlFor="shape">Shape</label>
+          <select id="shape" className="text-xl px-2 border border-black" name="shape">
+                <option id='Square'>Square</option>
+                <option id="Almond">Almond</option>
+                <option id="Coffin">Coffin</option>
+            </select> 
+
+            <label htmlFor="length">Length</label>
+          <select id="length" className="text-xl px-2 border border-black" name="length">
+                <option id='short'>Short</option>
+                <option id="medium">Medium</option>
+                <option id="long">Long</option>
+            </select> 
+
+
+          <label htmlFor="size">Size</label>
+          <select id="size" className="text-xl px-2 border border-black" name="size">
+                <option id='x-small'>x-small</option>
+                <option id="small">Small</option>
+                <option id="medium">Medium</option>
+                <option id="large">Large</option>
+                <option id="x-large">X-large</option>
+            </select> 
+
           <button
             className="bg-blue-400 w-fit mx-auto p-5 mt-5 rounded-xl"
             type="submit"
@@ -71,9 +95,7 @@ const nav = useNavigate();
       <div className=" rounded-xl shadow-purple-500 shadow-xl mb-10 text-center pt-5 bg-white border-2 border-black mt-10 mx-10">
         <div className="text-4xl text-center text-black mb-2">
           <h1>Store</h1>
-          <h2 className="text-2xl">
-            Edit, and Delete
-          </h2>
+          
           
         </div>
 

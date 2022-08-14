@@ -20,6 +20,7 @@ app.set('port', port);
 (async() => {
   try {
 await sequelize.authenticate();
+await sequelize.sync();
 console.log(`Connection successful on port:${port}`)
 
 

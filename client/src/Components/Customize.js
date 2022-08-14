@@ -94,6 +94,8 @@ export default function Customize(){
                 <option>Medium</option>
                 <option>Large</option>
             </select>
+                
+            <textarea type='text' />
     
     </form>
     

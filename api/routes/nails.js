@@ -22,7 +22,7 @@ router.post('/nails', async(req, res) => {
     try{
        
                
-             const NewNails = await nails.create({picture: req.files.picture.data, title: req.body.title, description: req.body.description })
+             const NewNails = await nails.create({picture: req.files.picture.data, title: req.body.title, description: req.body.description, size: req.body.size, shape: req.body.shape,})
            
            res.status(201);
 }catch(err) {
