@@ -7,8 +7,12 @@ import Mandi from "../Style/imgs/mandi.jpg";
 import Sizing from "../Style/imgs/Sizing.jpg"
 
 export default function About() {
+  
+
   const [storeData, setStoreData] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [cart, setCartItem] = useState([])
+ 
   
 
   useEffect(() => {
@@ -20,13 +24,14 @@ export default function About() {
         });
     };
     fetchStore();
+    console.log(storeData)
   }, []);
 
   const nav = useNavigate();
 
   return (
     <div className=" bg-space">
-      <Header />
+      <Header cart={cart}  setCartItem={setCartItem} setStoreData={setStoreData} storeData={storeData}/>
       {/* ============================== ABOUT ME ====================================== */}
 
       <div className="lg:flex md:flex block rounded-xl bg-transparent p-5 mx-10 mt-10 ">
@@ -49,11 +54,16 @@ export default function About() {
       {/* ================================== Store =============================================== */}
 
       <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5 bg-white border-2 border-black mt-10 mx-10">
-        <div className="text-4xl text-center text-black mb-2">
+      <div className="flex flex-col md:grid md:grid-cols-3">
+     <a href="#customize" className="mx-auto md:ml-5"><button className="bg-red-500 text-white p-5 w-fit rounded-2xl">Click here to customize a set</button></a>
+        <div className="text-4xl text-center flex flex-col text-black mb-2">
           <h1>Ready To Ship</h1>
           <h2 className="text-xl">Each set is custom and unique</h2>
         </div>
+        <h1>Filter by:</h1>
 
+        
+</div>
         <div className="justify-between flex flex-wrap">
           {storeData
             ? storeData.map((nail) => (
@@ -72,7 +82,8 @@ export default function About() {
                   </div>
                   <button
                     onClick={() => {
-                      nav(`/nail-set/${nail.id}`);
+                     setCartItem(current => [...cart, nail]);
+                     setStoreData([...storeData.filter(data => data.id != nail.id)])
                     }}
                     className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
                   >
@@ -93,7 +104,7 @@ export default function About() {
       {/* CUSTOM A SET  */}
 
 
-        <div className=" bg-white mt-10 border text-center  shadow-purple-500 shadow-xl border-black rounded-xl md:w-1/2 mx-auto text-2xl mb-5 p-5">
+        <div id="customize" className=" bg-white mt-10 border text-center  shadow-purple-500 shadow-xl border-black rounded-xl md:w-1/2 mx-auto text-2xl mb-5 p-5">
           <h1 className="text-4xl">Customize A Set</h1>
           <div className=" border-t-2 border-black">
             <form className="flex flex-col mt-5 ">
