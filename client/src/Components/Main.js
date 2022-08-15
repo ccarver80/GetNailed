@@ -4,9 +4,12 @@ import api from "../api";
 import Header from "./Header";
 
 import Mandi from "../Style/imgs/mandi.jpg";
+import Sizing from "../Style/imgs/Sizing.jpg"
 
 export default function About() {
   const [storeData, setStoreData] = useState();
+  const [showModal, setShowModal] = useState(false);
+  
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -56,22 +59,25 @@ export default function About() {
             ? storeData.map((nail) => (
                 <div className="mx-auto flex flex-col m-5">
                   <img
-                    className="lg:h-96 md:h-56 rounded"
+                    className="lg:h-96 lg:w-56 md:h-56 mx-auto rounded shadow-lg shadow-black mb-5"
                     alt="press-on nail"
                     src={`${api}/nails/${nail.id}`}
                   />
-                  <div className="border border-black mb-2 mt-2 rounded ">
-                  <h1 className="text-2xl">{nail.title}</h1>
+                  <div className="border border-black mb-2 mt-2 rounded p-2 content-around grid grid-cols-1 h-52 w-56">
+                  <h1 className="text-2xl font-extrabold">The "{nail.title}"</h1>
                   <h2>{nail.description}</h2>
                   <h2>Size: {nail.size}</h2>
-                  <h2>Shape: {nail.shape}</h2></div>
+                  <h2>Shape: {nail.shape}</h2>
+                  
+                  </div>
                   <button
                     onClick={() => {
                       nav(`/nail-set/${nail.id}`);
                     }}
                     className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
                   >
-                    Add to Cart
+                    Add to Cart 
+                    <h1>${nail.price}</h1>
                   </button>
                 </div>
               ))
@@ -87,7 +93,7 @@ export default function About() {
       {/* CUSTOM A SET  */}
 
 
-        <div className=" bg-white mt-5 border text-center  shadow-purple-500 shadow-xl border-black rounded-xl w-1/2 mx-auto text-2xl mb-5 p-5">
+        <div className=" bg-white mt-10 border text-center  shadow-purple-500 shadow-xl border-black rounded-xl md:w-1/2 mx-auto text-2xl mb-5 p-5">
           <h1 className="text-4xl">Customize A Set</h1>
           <div className=" border-t-2 border-black">
             <form className="flex flex-col mt-5 ">
@@ -95,7 +101,7 @@ export default function About() {
               <input
                 placeholder="Jane Doe"
                 id="name"
-                className="border border-black  w-fit mx-auto"
+                className="border border-black  mx-auto"
               />
               <label className="mt-5" htmlFor="name">Email:</label>
               <input
@@ -103,7 +109,7 @@ export default function About() {
                 id="email"
                 className="border border-black  w-fit mx-auto"
               />
-
+              <div className="border border-black flex flex-col mt-5 p-5">
               <label className="mt-5" htmlFor="design">
                 Pattern or style you like from above
               </label>
@@ -112,14 +118,14 @@ export default function About() {
                 <option>Mandi</option>
                 <option>Jessica</option>
               </select>
-
+                    <h1 className="text-2xl font-extrabold mt-5">AND/OR</h1>
               <label className="mt-5" htmlFor="picUpload">
-            Or upload your own picture for reference
+             Upload your own picture for reference
           </label>
           <input className="border border-black" id="picUpload" name="picture" type="file" />
+</div>
 
-
-              <label className="mt-5" htmlFor="shape">
+              <label className="mt-5 font-extrabold text-2xl" htmlFor="shape">
                 Shape
               </label>
               <select className="w-fit mx-auto border border-black" id="shape">
@@ -128,7 +134,7 @@ export default function About() {
                 <option>Square</option>
               </select>
 
-              <label className="mt-5" htmlFor="length">
+              <label className="mt-5 font-extrabold text-2xl" htmlFor="length">
                 Length
               </label>
               <select className="w-fit mx-auto border border-black">
@@ -138,17 +144,16 @@ export default function About() {
                 <option>Large</option>
                 <option>X-Large</option>
               </select>
+              
+<h1 className="mt-5 font-extrabold text-2xl">Size</h1>
+              <div className="flex border border-black p-2  flex-col mt-5">
+              
+             
 
-              <h1 className="mt-5">Size</h1>
-              <div className="flex flex-row mx-auto">
-                <label className="text-xl">I don't know my size</label>
-                <input
-                  className="ml-2 border border-black h-5 w-5"
-                  type="checkbox"
-                />
-              </div>
+              {/* Size input */}
 
-              <div className="flex flex-row justify-between mt-5">
+              
+                <div className="flex flex-row justify-between mt-2">
                 <h1 className="my-auto">Right hand</h1>
 
                 <div className="flex flex-col">
@@ -197,8 +202,103 @@ export default function About() {
                 </div>
               </div>
 
+              <>
+      <button
+        className="bg-red-500 text-white active:bg-pink-600 w-fit mx-auto p-3 mt-5 font-bold uppercase text-sm  rounded shadow hover:shadow-lg outline-none focus:outline-none  transition-all duration-150"
+        type="button"
+        onClick={() => setShowModal(true)}
+      >
+        Show sizing chart
+      </button>
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">
+                    Sizing
+                  </h3>
+                  <button
+                    className=""
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="text-slate-500 text-4xl">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+
+
+                <img
+          className=" mr-5 mb-3 shadow-2xl shadow-purple-400 rounded-xl"
+          alt="profile"
+          src={Sizing}
+        />
+
+              <table className="mx-auto text-4xl">
+                <tr>
+                 <td className="border border-black p-2">
+                  Size
+                 </td>
+                 <td className="border border-black p-2">0</td>
+                 <td className="border border-black p-2">1</td>
+                 <td className="border border-black p-2">2</td>
+                 <td className="border border-black p-2">3</td>
+                 <td className="border border-black p-2">4</td>
+                 <td className="border border-black p-2">5</td>
+                 <td className="border border-black p-2">6</td>
+                 <td className="border border-black p-2">7</td>
+                 <td className="border border-black p-2">8</td>
+                 <td className="border border-black p-2">9</td>
+                </tr>
+
+                <tr>
+                <td className="border border-black">
+                  mm
+                 </td>
+                 <td className="border border-black p-2">18</td>
+                 <td className="border border-black p-2">16</td>
+                 <td className="border border-black p-2">15</td>
+                 <td className="border border-black p-2">14</td>
+                 <td className="border border-black p-2">13</td>
+                 <td className="border border-black p-2">12</td>
+                 <td className="border border-black p-2">11</td>
+                 <td className="border border-black p-2">10</td>
+                 <td className="border border-black p-2">9</td>
+                 <td className="border border-black p-2">8</td>
+                </tr>
+              </table>
+
+
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="bg-red-500 text-white font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+</div>
               <label className="mt-5">
-                Special Order Requests
+                Special Order Requests:
               </label>
               <textarea
                 placeholder="Freestyle with neon tyedye and flowers maybe white accent? I like watercolors or traditional tyedye "

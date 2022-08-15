@@ -81,6 +81,10 @@ const nav = useNavigate();
                 <option id="x-large">X-large</option>
             </select> 
 
+          <label htmlFor="price">Price</label>
+          <div className="flex flex-row"><h1>$</h1>
+          <input type="number" name="price" id="price" placeholder="35.00" className="border border-black"/></div>
+
           <button
             className="bg-blue-400 w-fit mx-auto p-5 mt-5 rounded-xl"
             type="submit"
