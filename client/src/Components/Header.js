@@ -97,7 +97,10 @@ export default function Header(props) {
                             <h1>${item.price}.00</h1>
                             <button onClick={() => {
                               props.setCartItem([...cartItems.filter(data => data.id != item.id)]);
-                              props.setStoreData([...props.storeData, item])
+                              if(item.title != "Custom Order"){
+                                  props.setStoreData([...props.storeData, item])
+                              }
+                              
                             
                             
                             }}>Remove</button>
