@@ -39,15 +39,28 @@ router.post('/nails', async(req, res) => {
 
 router.post('/nail-custom', async(req, res) => {
     try{
+
         
-        
+
+        let file;
+        let photo; 
+        if(req.files === null){
+            file = "none selected"
+            photo = "none selected"
+        }else {
+            file = req.files.style2.data
+            
+        }
+
+      
+
 
         const newCustom = await custom.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
             style1: nails.findByPk(req.body.style1),
-            style2: req.files.picture.data,
+            style2: photo,
             shape: req.body.shape,
             length: req.body.length,
             rt: req.body.rt,
@@ -62,6 +75,10 @@ router.post('/nail-custom', async(req, res) => {
             lp: req.body.lp,
             specialRequests: req.body.specialRequests,
         })
+
+        if(file != "none selected"){
+            photo = `<img style='height:500px;' src=${process.env.HOST}nail-custom/${newCustom.id}/>`
+        }
 
         let transporter = nodemailer.createTransport({
             host: "smtp-mail.outlook.com",
@@ -89,7 +106,7 @@ router.post('/nail-custom', async(req, res) => {
             html: `<h1>You have a new custom order from! ${req.body.firstName} ${req.body.lastName}</h1>
                     <p><b>Email:</b>${req.body.email}</p>
                     <p><b>Style picked:</b><img src=${process.env.HOST}nails/${req.body.style1}/><p>
-                    <p><b>Submitted Photo: <img style="height:500px;" src=${process.env.HOST}nail-custom/${newCustom.id}/></b></p>
+                    <p><b>Submitted Photo:</b>${photo}</p>
                     <p><b>Shape:</b>${req.body.shape}</p>
                     <p><b>Length:</b>${req.body.length}</p>
                     <h1>Nail Size:</h1>
@@ -108,8 +125,11 @@ router.post('/nail-custom', async(req, res) => {
                       ` // html body
           });
          
-        res.status(201)
+        res.status(201).json({message: "Successfully submitted!! You will be receiving a email shortly, Please check your spam/junk folder."})
     }catch(err){
+        res.json({message: "sorry there was and error on the server",
+                    err: err
+                                    })
         console.log(err)
     }
 })

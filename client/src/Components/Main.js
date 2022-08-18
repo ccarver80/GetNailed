@@ -5,16 +5,19 @@ import Header from "./Header";
 
 import Mandi from "../Style/imgs/mandi.jpg";
 import Sizing from "../Style/imgs/Sizing.jpg";
+import None from "../Style/imgs/none.png"
 
 export default function About() {
   const [storeData, setStoreData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [cart, setCartItem] = useState([]);
   const [formData, setFormData] = useState()
+  const [picture, setPicture] = useState()
+  const [message, setMessage] = useState()
 
   
-  const form = new FormData();
- 
+  
+ const form = new FormData();
 
 
   useEffect(() => {
@@ -26,15 +29,44 @@ export default function About() {
         });
     };
     fetchStore();
-    console.log(form);
+   
   }, []);
 
-  // const sendForm = async() => {
-  //   await fetch(`${api}/nail-custom`, {
-  //     method: 'POST',
-  //     body: formData,
-  //   })
-  // }
+  const sendForm = async(e) => {
+      
+     e.preventDefault()
+     setMessage("Please wait.....")
+
+    //  This can be a loop function maybe?
+     form.append("firstName", formData.firstName)
+     form.append("lastName", formData.lastName)
+     form.append("email", formData.email)
+     form.append("style1", formData.style1)
+     form.append("style2", picture)
+     form.append("shape", formData.shape)
+     form.append('length', formData.length)
+     form.append('rt', formData.rt)
+     form.append('ri', formData.ri)
+     form.append('rm', formData.rm)
+     form.append('rr', formData.rr)
+     form.append('rp', formData.rp)
+     form.append('lt', formData.lt)
+     form.append('li', formData.li)
+     form.append('lm', formData.lm)
+     form.append('lr', formData.lr)
+     form.append('lp', formData.lp)
+     form.append('specialRequests', formData.specialRequests)
+     
+
+    await fetch(`${api}/nail-custom`, {
+      method: 'POST',
+      body: form,
+    }
+     
+    ).then((res)=> res.json())
+    .then((data) => setMessage(data.message))
+   
+  }
 
   return (
     <div className=" bg-space">
@@ -122,13 +154,11 @@ export default function About() {
         <h1 className="text-4xl">Customize A Set</h1>
         <div className=" border-t-2 border-black">
           <form 
-          action={`${api}/nail-custom`}
-          method="post"
-          id="uploadForm"
-          encType="multipart/form-data"
+          onSubmit={sendForm}
           className="flex flex-col mt-5 ">
             <label htmlFor="firstName">First Name:</label>
             <input
+              required
               placeholder="Jane"
               id="firstName"
               name="firstName"
@@ -137,6 +167,7 @@ export default function About() {
             />
             <label htmlFor="lastName">Last Name:</label>
             <input
+              required
               placeholder="Doe"
               id="lastName"
               name="lastName"
@@ -148,6 +179,8 @@ export default function About() {
               Email:
             </label>
             <input
+              required
+              type="email"
               placeholder="jdoe1987@gmail.com"
               id="email"
               name="email"
@@ -158,11 +191,14 @@ export default function About() {
               <label className="mt-5" htmlFor="design">
                 Pattern or style you like from above
               </label>
-              <select id="design" className="w-fit mx-auto border border-black mt-2" name="style1">
+              <select defaultValue="noneSelected" onChange={(e) => setFormData({...formData, style1: e.target.value})}  id="design" className="w-fit mx-auto border border-black mt-2" name="style1">
+              <option value="none" selected disabled hidden>
+            Please select a nail set
+          </option>
                 {storeData ? (
                   storeData.map(item => {
                     return(
-                      <option id={item.id}>{item.title}</option>
+                      <option  value={item.id}>{item.title}</option>
                     )
                   })
                 ) : ""}
@@ -172,22 +208,22 @@ export default function About() {
                 Upload your own picture for reference
               </label>
               <input
+                
                 className="border border-black"
                 id="picUpload"
                 name="picture"
                 type="file"
-                onChange={(e) => {
-                  form.append('image', e.target.files[0]);
-                  console.log(form)
-                  
-                  }}
+                onChange={(e) => setPicture(e.target.files[0])}
               />
             </div>
 
             <label className="mt-5 font-extrabold text-2xl" htmlFor="shape">
               Shape
             </label>
-            <select className="w-fit mx-auto border border-black" name="shape">
+            <select onChange={(e) => setFormData({...formData, shape: e.target.value})}  className="w-fit mx-auto border border-black" name="shape">
+            <option value="none" selected disabled hidden>
+            Please pick a shape
+          </option>
               <option id="coffin">Coffin</option>
               <option id="almond">Almond</option>
               <option id="square">Square</option>
@@ -196,7 +232,10 @@ export default function About() {
             <label className="mt-5 font-extrabold text-2xl" htmlFor="length">
               Length
             </label>
-            <select className="w-fit mx-auto border border-black" name="length">
+            <select onChange={(e) => setFormData({...formData, length: e.target.value})}  className="w-fit mx-auto border border-black" name="length">
+            <option value="none" selected disabled hidden>
+            Please pick a length
+          </option>
               <option>X-Small</option>
               <option>Small</option>
               <option>Medium</option>
@@ -217,6 +256,7 @@ export default function About() {
                     name="rt"
                     placeholder="0"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, rt: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -225,6 +265,7 @@ export default function About() {
                     name="ri"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, ri: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -233,6 +274,7 @@ export default function About() {
                     name="rm"
                     placeholder="4"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, rm: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -241,6 +283,7 @@ export default function About() {
                     name="rr"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, rr: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -249,6 +292,7 @@ export default function About() {
                     name="rp"
                     placeholder="8"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, rp: e.target.value})} 
                   />
                 </div>
               </div>
@@ -261,6 +305,7 @@ export default function About() {
                     name="lt"
                     placeholder="1"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, lt: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -269,6 +314,7 @@ export default function About() {
                     name="li"
                     placeholder="6"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, li: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -277,6 +323,7 @@ export default function About() {
                     name="lm"
                     placeholder="4"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, lm: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -285,6 +332,7 @@ export default function About() {
                     name="lr"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, lr: e.target.value})} 
                   />
                 </div>
                 <div className="flex flex-col">
@@ -293,6 +341,7 @@ export default function About() {
                     name="lp"
                     placeholder="8"
                     className="border border-black w-10 mx-auto"
+                    onChange={(e) => setFormData({...formData, lp: e.target.value})} 
                   />
                 </div>
               </div>
@@ -384,7 +433,11 @@ export default function About() {
               name="specialRequests"
               placeholder="Freestyle with neon tyedye and flowers maybe white accent? I like watercolors or traditional tyedye "
               className="border border-black w-full mx-auto h-52 text-2xl"
+              onChange={(e) => setFormData({...formData, specialRequests: e.target.value})} 
             ></textarea>
+              {
+                message ? (<h1>{message}</h1>) : ""
+              }
             <button type="submit"
                     onClick={() => {
                       setCartItem((current) => [...cart, {title: "Custom Order", price: 50} ]);
@@ -392,8 +445,7 @@ export default function About() {
                     }}
                     className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
                   >
-                    Add to Cart
-                    <h1>$50</h1>
+                    Submit for quote!
                   </button>
           </form>
         </div>
