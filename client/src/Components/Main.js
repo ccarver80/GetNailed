@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react"; 
 import api from "../api";
 import Header from "./Header";
 
 import Mandi from "../Style/imgs/mandi.jpg";
 import Sizing from "../Style/imgs/Sizing.jpg";
-import None from "../Style/imgs/none.png";
+
 
 export default function About() {
   const [storeData, setStoreData] = useState();
@@ -130,7 +129,7 @@ export default function About() {
                     alt="press-on nail"
                     src={`${api}/nails/${nail.id}`}
                   />
-                  <button onClick={()=> {
+                  <button className="bg-blue-400 p-2 border border-black rounded w-fit mx-auto" onClick={()=> {
                     setPictureModal(true);
                     setPictureModalId(nail.id)
                   }}>See full image</button>
@@ -192,7 +191,7 @@ export default function About() {
                     onClick={() => {
                       setCartItem((current) => [...cart, nail]);
                       setStoreData([
-                        ...storeData.filter((data) => data.id != nail.id),
+                        ...storeData.filter((data) => data.id !== nail.id),
                       ]);
                     }}
                     className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
@@ -272,7 +271,7 @@ export default function About() {
                 className="w-fit mx-auto border border-black mt-2"
                 name="style1"
               >
-                <option value="none" selected disabled hidden>
+                <option value="">
                   Please select a nail set
                 </option>
                 <option value="Own Image">

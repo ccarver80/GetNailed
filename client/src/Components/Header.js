@@ -25,7 +25,7 @@ export default function Header(props) {
       <h1 className="lg:text-8xl md:text-6xl text-5xl text-white mx-auto my-auto font-Shadows">
         Get Nailed
       </h1>{" "}
-      <div className="absolute left-8 top-3">
+      {/* <div className="absolute left-8 top-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-12 w-12 text-white"
@@ -40,13 +40,13 @@ export default function Header(props) {
             d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
-      </div>
+      </div> */}
       <button type="button" onClick={() => setShowModal(true)}>
-        <div className="absolute right-5 top-3">
+        <div className="absolute right-5 top-5">
           {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10 mr-5 text-white "
+            className="h-20 w-20 mr-5 text-white "
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -59,9 +59,10 @@ export default function Header(props) {
             />
           </svg>
           {cartCount ? (
-            <p className="bg-red-500 text-center absolute right-12 text-white w-7 border-black border rounded-full">
-              {cartCount}
-            </p>
+            <div className="bg-red-500 flex  absolute right-12 text-white w-12 h-12 border-black border rounded-full">
+              <h1 className="mx-auto my-auto font-bold text-2xl">{cartCount}</h1>
+              
+            </div>
           ) : (
             ""
           )}
@@ -96,8 +97,8 @@ export default function Header(props) {
                             <h1>The "{item.title}"</h1>
                             <h1>${item.price}.00</h1>
                             <button onClick={() => {
-                              props.setCartItem([...cartItems.filter(data => data.id != item.id)]);
-                              if(item.title != "Custom Order"){
+                              props.setCartItem([...cartItems.filter(data => data.id !== item.id)]);
+                              if(item.title !== "Custom Order"){
                                   props.setStoreData([...props.storeData, item])
                               }
                               
