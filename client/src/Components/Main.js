@@ -5,68 +5,79 @@ import Header from "./Header";
 
 import Mandi from "../Style/imgs/mandi.jpg";
 import Sizing from "../Style/imgs/Sizing.jpg";
-import None from "../Style/imgs/none.png"
+import None from "../Style/imgs/none.png";
 
 export default function About() {
   const [storeData, setStoreData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [cart, setCartItem] = useState([]);
-  const [formData, setFormData] = useState()
-  const [picture, setPicture] = useState()
-  const [message, setMessage] = useState()
+  const [formData, setFormData] = useState({
+    shape: "none selected",
+    length: "none selected",
+    rt: "N/A",
+    ri: "N/A",
+    rm: "N/A",
+    rr: "N/A",
+    rp: "N/A",
+    lt: "N/A",
+    li: "N/A",
+    lm: "N/A",
+    lr: "N/A",
+    lp: "N/A",
+    specialRequests: "none selected",
+  });
+  const [pictureModal, setPictureModal] = useState(false);
+  const [pictureModalId, setPictureModalId] = useState()
+  const [message, setMessage] = useState();
+  const [imageMessage, setImageMessage] = useState(false);
 
-  
-  
- const form = new FormData();
-
+  const form = new FormData();
 
   useEffect(() => {
     const fetchStore = async () => {
-      await fetch(api + "/nails")
+      await fetch(api + "/nails/")
         .then((res) => res.json())
         .then((data) => {
           setStoreData(data);
         });
     };
     fetchStore();
-   
   }, []);
 
-  const sendForm = async(e) => {
-      
-     e.preventDefault()
-     setMessage("Please wait.....")
+  const sendForm = async (e) => {
+    e.preventDefault();
+    setMessage("Please wait.....");
 
     //  This can be a loop function maybe?
-     form.append("firstName", formData.firstName)
-     form.append("lastName", formData.lastName)
-     form.append("email", formData.email)
-     form.append("style1", formData.style1)
-     form.append("style2", picture)
-     form.append("shape", formData.shape)
-     form.append('length', formData.length)
-     form.append('rt', formData.rt)
-     form.append('ri', formData.ri)
-     form.append('rm', formData.rm)
-     form.append('rr', formData.rr)
-     form.append('rp', formData.rp)
-     form.append('lt', formData.lt)
-     form.append('li', formData.li)
-     form.append('lm', formData.lm)
-     form.append('lr', formData.lr)
-     form.append('lp', formData.lp)
-     form.append('specialRequests', formData.specialRequests)
-     
+    form.append("firstName", formData.firstName);
+    form.append("lastName", formData.lastName);
+    form.append("email", formData.email);
+    form.append("style1", formData.style1);
+    //  form.append("style2", picture)
+    form.append("shape", formData.shape);
+    form.append("length", formData.length);
+    form.append("rt", formData.rt);
+    form.append("ri", formData.ri);
+    form.append("rm", formData.rm);
+    form.append("rr", formData.rr);
+    form.append("rp", formData.rp);
+    form.append("lt", formData.lt);
+    form.append("li", formData.li);
+    form.append("lm", formData.lm);
+    form.append("lr", formData.lr);
+    form.append("lp", formData.lp);
+    form.append("specialRequests", formData.specialRequests);
 
-    await fetch(`${api}/nail-custom`, {
-      method: 'POST',
+    await fetch(api + "/nail-custom", {
+      method: "POST",
       body: form,
-    }
-     
-    ).then((res)=> res.json())
-    .then((data) => setMessage(data.message))
-   
-  }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMessage(data.message);
+        console.log(data.err);
+      });
+  };
 
   return (
     <div className=" bg-space">
@@ -115,17 +126,67 @@ export default function About() {
             ? storeData.map((nail) => (
                 <div className="mx-auto flex flex-col m-5">
                   <img
-                    className="lg:h-96 lg:w-56 md:h-56 mx-auto rounded shadow-lg shadow-black mb-5"
+                    className="lg:h-56 mx-auto rounded shadow-lg shadow-black mb-5"
                     alt="press-on nail"
                     src={`${api}/nails/${nail.id}`}
                   />
-                  <div className="border border-black mb-2 mt-2 rounded p-2 content-around grid grid-cols-1 h-52 w-56">
+                  <button onClick={()=> {
+                    setPictureModal(true);
+                    setPictureModalId(nail.id)
+                  }}>See full image</button>
+
+
+                  {/* PICTURE MODAL */}
+                  {pictureModal ? (
+                  <>
+                    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative w-auto my-6 mx-auto max-w-5xl">
+                        {/*content*/}
+                        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                           
+                            <button
+                              className=""
+                              onClick={() => setPictureModal(false)}
+                            >
+                              <span className="text-slate-500 text-4xl">×</span>
+                            </button>
+                          </div>
+                          {/*body*/}
+                          <div className="relative p-6 flex-auto">
+                            <img
+                              className=""
+                              alt="nailset"
+                              src={`${api}/nails/${pictureModalId}`}
+                            />
+
+                       
+                          </div>
+                          {/*footer*/}
+                          <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                            <button
+                              className="bg-red-500 text-white font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              type="button"
+                              onClick={() => {setPictureModal(false); setPictureModalId()}}
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
+                  <div className=" mx-auto border border-black mb-2 mt-2 rounded p-2 content-around grid grid-cols-1 h-52 w-56">
                     <h1 className="text-2xl font-extrabold">
                       The "{nail.title}"
                     </h1>
                     <h2>{nail.description}</h2>
-                    <h2>Size: {nail.size}</h2>
                     <h2>Shape: {nail.shape}</h2>
+                    <h2>Length: {nail.length}</h2>
+                    <h2>Size: {nail.size}</h2>
                   </div>
                   <button
                     onClick={() => {
@@ -153,30 +214,33 @@ export default function About() {
       >
         <h1 className="text-4xl">Customize A Set</h1>
         <div className=" border-t-2 border-black">
-          <form 
-          onSubmit={sendForm}
-          className="flex flex-col mt-5 ">
-            <label htmlFor="firstName">First Name:</label>
+        <h1>* Denotes required field</h1>
+          <form onSubmit={sendForm} className="flex flex-col mt-5 ">
+            
+            <label htmlFor="firstName">* First Name:</label>
             <input
               required
               placeholder="Jane"
               id="firstName"
               name="firstName"
               className="border border-black  mx-auto"
-              onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
             />
-            <label htmlFor="lastName">Last Name:</label>
+            <label htmlFor="lastName">* Last Name:</label>
             <input
               required
               placeholder="Doe"
               id="lastName"
               name="lastName"
               className="border border-black  mx-auto"
-              onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-            
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
             />
             <label className="mt-5" htmlFor="name">
-              Email:
+              * Email:    
             </label>
             <input
               required
@@ -185,25 +249,54 @@ export default function About() {
               id="email"
               name="email"
               className="border border-black  w-fit mx-auto"
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
+            <h2 className="text-lg">Please check to make sure email is correct</h2>
             <div className="border border-black flex flex-col mt-5 p-5">
               <label className="mt-5" htmlFor="design">
-                Pattern or style you like from above
+                * Pattern or style you like from above
               </label>
-              <select defaultValue="noneSelected" onChange={(e) => setFormData({...formData, style1: e.target.value})}  id="design" className="w-fit mx-auto border border-black mt-2" name="style1">
-              <option value="none" selected disabled hidden>
-            Please select a nail set
-          </option>
-                {storeData ? (
-                  storeData.map(item => {
-                    return(
-                      <option  value={item.id}>{item.title}</option>
-                    )
-                  })
-                ) : ""}
+              <select
+                required
+                onChange={(e) => {
+                  if (e.target.value === "Own Image") {
+                    setImageMessage(true);
+                  } else {
+                    setImageMessage(false);
+                  }
+                  setFormData({ ...formData, style1: e.target.value });
+                }}
+                id="design"
+                className="w-fit mx-auto border border-black mt-2"
+                name="style1"
+              >
+                <option value="none" selected disabled hidden>
+                  Please select a nail set
+                </option>
+                <option value="Own Image">
+                  I have my own design I would like to use
+                </option>
+                {storeData
+                  ? storeData.map((item) => {
+                      return (
+                        <option className=" text-center" value={item.id}>
+                          The "{item.title}"
+                        </option>
+                      );
+                    })
+                  : ""}
               </select>
-              <h1 className="text-2xl font-extrabold mt-5">AND/OR</h1>
+              {imageMessage ? (
+                <h1 className="mx-auto font-bold mt-5">
+                  **With this option I will be in contact to learn more about
+                  your own design**
+                </h1>
+              ) : (
+                ""
+              )}
+              {/* <h1 className="text-2xl font-extrabold mt-5">AND/OR</h1>
               <label className="mt-5" htmlFor="picUpload">
                 Upload your own picture for reference
               </label>
@@ -214,16 +307,22 @@ export default function About() {
                 name="picture"
                 type="file"
                 onChange={(e) => setPicture(e.target.files[0])}
-              />
+              /> */}
             </div>
 
             <label className="mt-5 font-extrabold text-2xl" htmlFor="shape">
               Shape
             </label>
-            <select onChange={(e) => setFormData({...formData, shape: e.target.value})}  className="w-fit mx-auto border border-black" name="shape">
-            <option value="none" selected disabled hidden>
-            Please pick a shape
-          </option>
+            <select
+              onChange={(e) =>
+                setFormData({ ...formData, shape: e.target.value })
+              }
+              className="w-fit mx-auto border border-black"
+              name="shape"
+            >
+              <option value="none" selected disabled hidden>
+                Please pick a shape
+              </option>
               <option id="coffin">Coffin</option>
               <option id="almond">Almond</option>
               <option id="square">Square</option>
@@ -232,10 +331,16 @@ export default function About() {
             <label className="mt-5 font-extrabold text-2xl" htmlFor="length">
               Length
             </label>
-            <select onChange={(e) => setFormData({...formData, length: e.target.value})}  className="w-fit mx-auto border border-black" name="length">
-            <option value="none" selected disabled hidden>
-            Please pick a length
-          </option>
+            <select
+              onChange={(e) =>
+                setFormData({ ...formData, length: e.target.value })
+              }
+              className="w-fit mx-auto border border-black"
+              name="length"
+            >
+              <option value="none" selected disabled hidden>
+                Please pick a length
+              </option>
               <option>X-Small</option>
               <option>Small</option>
               <option>Medium</option>
@@ -256,7 +361,9 @@ export default function About() {
                     name="rt"
                     placeholder="0"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, rt: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, rt: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -265,7 +372,9 @@ export default function About() {
                     name="ri"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, ri: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, ri: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -274,7 +383,9 @@ export default function About() {
                     name="rm"
                     placeholder="4"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, rm: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, rm: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -283,7 +394,9 @@ export default function About() {
                     name="rr"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, rr: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, rr: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -292,7 +405,9 @@ export default function About() {
                     name="rp"
                     placeholder="8"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, rp: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, rp: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -305,7 +420,9 @@ export default function About() {
                     name="lt"
                     placeholder="1"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, lt: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, lt: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -314,7 +431,9 @@ export default function About() {
                     name="li"
                     placeholder="6"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, li: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, li: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -323,7 +442,9 @@ export default function About() {
                     name="lm"
                     placeholder="4"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, lm: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, lm: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -332,7 +453,9 @@ export default function About() {
                     name="lr"
                     placeholder="5"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, lr: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, lr: e.target.value })
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -341,7 +464,9 @@ export default function About() {
                     name="lp"
                     placeholder="8"
                     className="border border-black w-10 mx-auto"
-                    onChange={(e) => setFormData({...formData, lp: e.target.value})} 
+                    onChange={(e) =>
+                      setFormData({ ...formData, lp: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -433,20 +558,17 @@ export default function About() {
               name="specialRequests"
               placeholder="Freestyle with neon tyedye and flowers maybe white accent? I like watercolors or traditional tyedye "
               className="border border-black w-full mx-auto h-52 text-2xl"
-              onChange={(e) => setFormData({...formData, specialRequests: e.target.value})} 
-            ></textarea>
-              {
-                message ? (<h1>{message}</h1>) : ""
+              onChange={(e) =>
+                setFormData({ ...formData, specialRequests: e.target.value })
               }
-            <button type="submit"
-                    onClick={() => {
-                      setCartItem((current) => [...cart, {title: "Custom Order", price: 50} ]);
-                      
-                    }}
-                    className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
-                  >
-                    Submit for quote!
-                  </button>
+            ></textarea>
+            {message ? <h1>{message}</h1> : ""}
+            <button
+              type="submit"
+              className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
+            >
+              Submit for quote!
+            </button>
           </form>
         </div>
       </div>
