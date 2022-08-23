@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
+
 import api from "../api";
 
 export default function Header(props) {
+
+  const nav = useNavigate()
+
   const [showModal, setShowModal] = useState(false);
 
   const [cartCount, setCartCount] = useState();
   const [cartItems, setCartItems] = useState();
+  const [items, setItems] = useState([]);
 
   let cartTotal = 0;
 
@@ -13,13 +19,33 @@ export default function Header(props) {
     function countCart() {
       setCartCount(props.cart.length);
       setCartItems(props.cart)
+      
     }
 
     countCart();
-    
+     
    
   });
 
+  const sendCheckout = async() => {
+    
+    await fetch(`${api}/checkout`, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json"},
+      body: JSON.stringify({
+        
+       items: props.cartID.map(item => item)
+      })
+    })
+
+    .then((res) => res.json())
+    .then((data) => window.location.replace(data.url))
+  }
+  
+  
+  
+  
   return (
     <div className="mx-5 flex h-[120px] bg-space  rounded-xl ">
       <h1 className="lg:text-8xl md:text-6xl text-5xl text-white mx-auto my-auto font-Shadows">
@@ -98,12 +124,8 @@ export default function Header(props) {
                             <h1>${item.price}.00</h1>
                             <button onClick={() => {
                               props.setCartItem([...cartItems.filter(data => data.id !== item.id)]);
-                              if(item.title !== "Custom Order"){
-                                  props.setStoreData([...props.storeData, item])
-                              }
+                              props.setCartID([...props.cartID.filter((data) => data.id !== item.id) ])
                               
-                            
-                            
                             }}>Remove</button>
                             </div>
                             </div>
@@ -122,7 +144,10 @@ export default function Header(props) {
                   <button
                     className="bg-blue-500 text-white font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      
+                     
+                      sendCheckout();}}
                   >
                     Checkout 
                   </button>

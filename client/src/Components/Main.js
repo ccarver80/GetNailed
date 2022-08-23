@@ -29,6 +29,7 @@ export default function About() {
   const [pictureModalId, setPictureModalId] = useState()
   const [message, setMessage] = useState();
   const [imageMessage, setImageMessage] = useState(false);
+  const [cartID, setCartID] = useState([])
 
   const form = new FormData();
 
@@ -85,6 +86,8 @@ export default function About() {
         setCartItem={setCartItem}
         setStoreData={setStoreData}
         storeData={storeData}
+        cartID={cartID}
+        setCartID={setCartID}
       />
       {/* ============================== ABOUT ME ====================================== */}
 
@@ -190,9 +193,12 @@ export default function About() {
                   <button
                     onClick={() => {
                       setCartItem((current) => [...cart, nail]);
+                      setCartID((current => [...cartID, {id: nail.id, quantity: 1}]))
                       setStoreData([
                         ...storeData.filter((data) => data.id !== nail.id),
                       ]);
+
+                      
                     }}
                     className="bg-red-500 text-white p-5 rounded-2xl mx-auto"
                   >
