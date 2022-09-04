@@ -110,14 +110,14 @@ export default function About() {
 
       {/* ================================== Store =============================================== */}
 
-      <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5 bg-white border-2 border-black mt-10 mx-10">
+      <div className=" rounded-xl shadow-purple-500 shadow-xl  text-center pt-5  bg-black/60 text-white border-2 border-black mt-10 mx-10">
         <div className="flex flex-col md:grid md:grid-cols-3">
           <a href="#customize" className="mx-auto md:ml-5">
             <button className="bg-red-500 text-white p-5 w-fit rounded-2xl">
               Click here to customize a set
             </button>
           </a>
-          <div className="text-4xl text-center flex flex-col text-black mb-2">
+          <div className="text-4xl text-center flex flex-col text-white mb-2">
             <h1>Ready To Ship</h1>
             <h2 className="text-xl">Each set is custom and unique</h2>
           </div>
@@ -127,16 +127,30 @@ export default function About() {
           {storeData
             ? storeData.map((nail) => (
                 <div className="mx-auto flex flex-col m-5">
+                <h1 className="text-2xl font-extrabold">
+                      The "{nail.title}"
+                    </h1>
+
+                  
+                  <div className="relative">
                   <img
-                    className="lg:h-56 mx-auto rounded shadow-lg shadow-black mb-5"
+                  onMouseEnter={() => {
+                    document.getElementById(`enlarge-${nail.id}`).style.display="block"
+                  }}
+                  onMouseLeave={() => {
+                    document.getElementById(`enlarge-${nail.id}`).style.display="none"
+                  }}
+                  onClick={()=> {
+                    setPictureModal(true);
+                    setPictureModalId(nail.id)}}
+                    className="lg:h-56 mx-auto rounded shadow-lg hover:shadow-2xl hover:shadow-white hover:opacity-75 border-2 border-white shadow-black"
                     alt="press-on nail"
                     src={`${api}/nails/${nail.id}`}
+                    
                   />
-                  <button className="bg-blue-400 p-2 border border-black rounded w-fit mx-auto" onClick={()=> {
-                    setPictureModal(true);
-                    setPictureModalId(nail.id)
-                  }}>See full image</button>
-
+                
+                  <p className="hidden absolute font-bold text-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" id={`enlarge-${nail.id}`}>Click image to enlarge</p>
+              </div>
 
                   {/* PICTURE MODAL */}
                   {pictureModal ? (
@@ -181,10 +195,8 @@ export default function About() {
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
-                  <div className=" mx-auto border border-black mb-2 mt-2 rounded p-2 content-around grid grid-cols-1 h-52 w-56">
-                    <h1 className="text-2xl font-extrabold">
-                      The "{nail.title}"
-                    </h1>
+                  <div className=" mx-auto border-4 border-white mb-2 mt-2 rounded-3xl p-2 content-around grid grid-cols-1 h-52 w-56">
+                   
                     <h2>{nail.description}</h2>
                     <h2>Shape: {nail.shape}</h2>
                     <h2>Length: {nail.length}</h2>

@@ -176,6 +176,7 @@ const nav = useNavigate();
                     <h2>Shape: {nail.shape}</h2>
                     <h2>Length: {nail.length}</h2>
                     <h2>Size: {nail.size}</h2>
+                    <h2>Price: ${nail.price}</h2>
                   </div>
                   <div className="flex flex-row justify-center"> 
                  <button onClick={() => {nav(`/edit-set/${nail.id}`)}} className="bg-green-400 w-fit p-5 rounded-xl">Edit</button>

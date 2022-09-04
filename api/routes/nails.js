@@ -160,6 +160,8 @@ router.put('/nails/:id', async(req, res) => {
                 id: req.params.id
             }
         })
+
+        res.status(201).send()
     }catch(err) {
         console.log(err)
     }
@@ -190,7 +192,7 @@ router.get('/nails/:id', async(req, res) => {
             }
         })
 
-        console.log(nailList[0].picture)
+      
        
         res.end(nailList[0].picture)
         
